@@ -1,5 +1,5 @@
 {
-  "name": "pdb-requester",
+  "name": "@core-techs-git/pdb-requester",
   "version": "1.0.0",
   "description": "A request formater mmodule for pdb apps.",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     "npm": "6.9.0"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/core-techs-git"
+    "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
     "http-proxy-agent": "^2.1.0",

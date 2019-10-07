@@ -1,0 +1,51 @@
+{
+  "name": "pdb-requester",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A request formater mmodule for pdb apps.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint --ext .ts --color ./src",
+    "build": "npm run clean && npm run lint && tsc",
+    "watch": "npm run build -- -w"
+  },
+  "keywords": [
+    "pdb",
+    "requester"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/core-techs-git/pdb_requester.git"
+  },
+  "author": "Adimeo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Core-Techs-Git/pdb_requester/issues"
+  },
+  "homepage": "https://github.com/Core-Techs-Git/pdb_requester#readme",
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.9.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "http-proxy-agent": "^2.1.0",
+    "https-proxy-agent": "^2.2.2",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/http-proxy-agent": "^2.0.1",
+    "@types/node": "^12.7.9",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.3"
+  }
+}

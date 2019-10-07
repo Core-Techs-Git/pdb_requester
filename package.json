@@ -8,7 +8,8 @@
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts --color ./src",
     "build": "npm run clean && npm run lint && tsc",
-    "watch": "npm run build -- -w"
+    "watch": "npm run build -- -w",
+    "publish": "npm run build && npm publish"
   },
   "keywords": [
     "pdb",

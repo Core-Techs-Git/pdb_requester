@@ -1,7 +1,6 @@
 {
   "name": "pdb-requester",
   "version": "1.0.0",
-  "private": true,
   "description": "A request formater mmodule for pdb apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

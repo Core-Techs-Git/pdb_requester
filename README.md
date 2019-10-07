@@ -19,11 +19,11 @@ Below are the features offered by **pdb_requester**:
 
 1. Install with `npm`
 
-```
+```Shell
 $ npm i -S @core-techs-git/pdb_requester
 ```
 
-> [!TIP]
+> ⚠️
 > To install this way you need to have configured `npm` to use `github package registry`. To know more you may follow [this link](https://help.github.com/en/articles/configuring-npm-for-use-with-github-package-registry#authenticating-to-github-package-registry).
 
 <details>
@@ -43,7 +43,7 @@ $ npm i -S @core-techs-git/pdb_requester
 
 2. Edit your configuration file _`config.js`_ located at the root of your project
 
-```
+```JavaScript
 const config = {};
 ...
 config.requester = {
@@ -58,13 +58,13 @@ module.exports = config;
 
 Make sure you have a _`requester`_ key in the exported object. Inside that requester you might want to define your services with _`proxy`_ and _`protocol`_ configuration you want to use for each one of them.
 
-> [!IMPORTANT]
-> Also you need to set an environment variable to define the proxy url: `http_proxy=http(s)://domain.name:port`
+> ⚠️
+> You also need to set an environment variable to define the proxy url: `http_proxy=http(s)://domain.name:port`
 
 3. Import the module inside your code and just use it
 
-```
-const requester = require('requester').service('docapost');
+```JavaScript
+const requester = require('requester')('docapost');
 requester.request(
   {
     host: 'www.google.com',
@@ -80,13 +80,13 @@ requester.request(
 
 1. Import the project from [github](https://github.com/Core-Techs-Git/pdb_requester)
 
-```
+```Shell
 $ git clone git@github.com:Core-Techs-Git/pdb_requester.git
 ```
 
 2. Install dependencies with `npm`
 
-```
+```Shell
 $ npm i
 ```
 
@@ -98,5 +98,3 @@ That's it you're all setup and can start contributing :thumbsup:.
 [<img src="https://eslint.org/assets/img/logo.svg" width="100"/>](https://eslint.org 'Eslint')&nbsp;&nbsp;&nbsp;&nbsp;
 [<img src="https://avatars0.githubusercontent.com/u/11887183?s=200&v=4" width="100"/>](http://inversify.io/ 'Inversify')&nbsp;&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn.worldvectorlogo.com/logos/jest-0.svg" width="100"/>](https://jestjs.io 'Jest')&nbsp;&nbsp;&nbsp;&nbsp;
-
-npm config set @core-techs-git:registry https://npm.pkg.github.com/core-techs-git

@@ -29,6 +29,7 @@
     "src"
   ],
   "exclude": [
+    "bin",
     "node_modules",
     "dist",
     "tests"

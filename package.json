@@ -1,6 +1,6 @@
 {
   "name": "@core-techs-git/pdb_requester",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A request formater mmodule for pdb apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,8 @@
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts --color ./src",
     "build": "npm run clean && npm run lint && tsc",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean",
     "watch": "npm run build -- -w"
   },
   "keywords": [

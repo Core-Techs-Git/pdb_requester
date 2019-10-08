@@ -33,7 +33,7 @@ export abstract class HypertextTransferProtocol implements ProtocolInterface {
           data += chunk;
         })
         .on('end', () => {
-          callback(null, 'test' + data);
+          callback(null, data);
         });
     });
     request.on('error', (err: Error) => {

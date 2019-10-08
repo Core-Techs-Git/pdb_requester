@@ -1,1 +1,0 @@
-{"version":3,"file":"Protocol.js","sourceRoot":"","sources":["../../src/factories/Protocol.ts"],"names":[],"mappings":";;;;;;;;AAAA,yCAAqC;AAErC,oCAA+B;AAC/B,gCAA0C;AAI1C,IAAa,eAAe,GAA5B,MAAa,eAAe;IAC1B,cAAc,CAAC,QAAgB;QAC7B,OAAO,wBAAkB,CAAC,QAAQ,CAAoB,aAAK,CAAC,iBAAiB,EAAE,QAAQ,CAAC,CAAC;IAC3F,CAAC;CACF,CAAA;AAJY,eAAe;IAD3B,sBAAU,EAAE;GACA,eAAe,CAI3B;AAJY,0CAAe"}

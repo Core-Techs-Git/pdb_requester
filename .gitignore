@@ -37,3 +37,6 @@ typings
 Thumbs.db
 *.DS_Store
 desktop.ini
+
+# Build
+dist

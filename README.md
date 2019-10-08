@@ -66,10 +66,13 @@ Make sure you have a _`requester`_ key in the exported object. Inside that reque
 ```JavaScript
 const requester = require('requester')('docapost');
 requester.request(
+  // Same parameters as node native http or https module
+  // However you can pass a key "body":<string> to send in the request
   {
     host: 'www.google.com',
     method: 'GET'
   },
+  // Callback
   (err, data) => {
     console.log('err', err);
     console.log('data', data);

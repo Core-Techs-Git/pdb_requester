@@ -13,23 +13,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const inversify_1 = require("inversify");
+const request_1 = require("request");
 const const_1 = require("../const");
 let Requester = class Requester {
-    constructor(config, protocolFactory) {
+    constructor(config) {
         if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
             throw new Error('Missing environment variable <http_proxy>.');
         this.config = config;
-        this.protocol = protocolFactory.createProtocol(config.getServiceConfiguration().protocol);
     }
-    request(options, callback) {
-        this.protocol.request(Object.assign(Object.assign({}, options), { useProxy: this.config.getServiceConfiguration().proxy }), callback);
+    getInstance() {
+        return request_1.defaults({
+            proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : undefined,
+        });
     }
 };
 Requester = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(const_1.TYPES.ConfigurationInterface)),
-    __param(1, inversify_1.inject(const_1.TYPES.ProtocolFactoryInterface)),
-    __metadata("design:paramtypes", [Object, Object])
+    __metadata("design:paramtypes", [Object])
 ], Requester);
 exports.Requester = Requester;
 //# sourceMappingURL=Requester.js.map

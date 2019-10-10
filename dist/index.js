@@ -8,6 +8,6 @@ module.exports = (serviceName) => {
     else
         lib_1.inversifyContainer.bind(const_1.PARAMS.SERVICE_NAME).toConstantValue(serviceName.toLowerCase());
     const requester = lib_1.inversifyContainer.get(const_1.TYPES.RequesterInterface);
-    return requester;
+    return requester.getInstance();
 };
 //# sourceMappingURL=index.js.map

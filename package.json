@@ -34,10 +34,12 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
+    "@types/request": "^2.48.3",
     "http-proxy-agent": "^2.1.0",
     "https-proxy-agent": "^2.2.2",
     "inversify": "^5.0.1",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@types/http-proxy-agent": "^2.0.1",

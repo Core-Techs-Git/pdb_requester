@@ -20,7 +20,7 @@ export class Requester implements RequesterInterface {
 
   getInstance(): RequestAPI<Request, CoreOptions, RequiredUriUrl> {
     return defaults({
-      proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : undefined,
+      proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : false,
     });
   }
 }

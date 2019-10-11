@@ -23,7 +23,7 @@ let Requester = class Requester {
     }
     getInstance() {
         return request_1.defaults({
-            proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : undefined,
+            proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : false,
         });
     }
 };

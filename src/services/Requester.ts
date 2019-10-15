@@ -14,7 +14,8 @@ export class Requester implements RequesterInterface {
   protected config: ConfigurationInterface;
 
   constructor(@inject(TYPES.ConfigurationInterface) config: ConfigurationInterface) {
-    if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined) throw new Error('Missing environment variable <http_proxy>.');
+    if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
+      throw new Error('Missing environment variable >> http_proxy <<.');
     this.config = config;
   }
 

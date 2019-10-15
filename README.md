@@ -46,36 +46,35 @@ $ npm i -S @core-techs-git/pdb_requester
 ```JavaScript
 const config = {};
 ...
-config.requester = {
-  docapost: {
-    proxy: false,
-    protocol: 'https'
-  },
+config.search = {
+  url: 'https://search/hashcontent/or?whatever=youlike',
+  defaultStoreUid: 1,
+  proxy: false,    // true if requests must go through the proxy.
 };
 ...
 module.exports = config;
 ```
 
-Make sure you have a _`requester`_ key in the exported object. Inside that requester you might want to define your services with _`proxy`_ and _`protocol`_ configuration you want to use for each one of them.
+Make sure you have a _`proxy`_ key inside each top level service key in the exported object, so you may configure the proxy access.
 
 > ⚠️
-> You also need to set an environment variable to define the proxy url: `http_proxy=http(s)://domain.name:port`
+> You also need to set an environment variable to define the proxy url: `http_proxy=http(s)://host.name:port`
 
-3. Import the module inside your code and just use it
+3. Import the module inside your code and just use it (remember that _`requester`_ is a little wrapper arround the module [Request](https://github.com/request/request))
 
 ```JavaScript
-const requester = require('requester')('docapost');
-requester.request(
+const requester = require('requester')('search');
+requester.get(
   // Same parameters as node native http or https module
   // However you can pass a key "body":<string> to send in the request
   {
-    host: 'www.google.com',
-    method: 'GET'
+    url: config.search.url,
   },
   // Callback
-  (err, data) => {
+  (err, response, body) => {
     console.log('err', err);
-    console.log('data', data);
+    console.log('response', response);
+    console.log('body', body);
   });
 ```
 

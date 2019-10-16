@@ -24,28 +24,26 @@ let Configuration = class Configuration {
      * @param {string} serviceName Name of the service configuration to look for.
      */
     setServiceConfiguration(serviceName) {
+        let configPath;
         try {
-            const configPath = path_1.resolve(process.cwd(), 'config.js');
-            const config = require(configPath).requester[serviceName.toLowerCase()];
-            this.serviceConfig = {
-                name: serviceName.toLowerCase(),
-                proxy: config.proxy || false,
-                protocol: config.protocol || 'http',
-            };
+            configPath = path_1.resolve(process.cwd(), 'config.js');
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const config = require(configPath);
+            if (config.hasOwnProperty(serviceName.toLowerCase())) {
+                this.serviceConfig = {
+                    name: serviceName.toLowerCase(),
+                    proxy: config[serviceName.toLowerCase()].proxy || false,
+                };
+            }
+            else
+                throw new Error(`PDB_REQUESTER: Missing entry '${serviceName.toLowerCase()}' in configuration file '${configPath}'`);
         }
         catch (err) {
-            if (/^Cannot read property/.test(err.message)) {
-                switch (/^Cannot read property '(?<property>.*)'/gi.exec(err.message).groups.property) {
-                    case 'proxy':
-                    case 'protocol':
-                        throw new Error(`Missing entry <requester.${serviceName}> in configuration file`);
-                    default:
-                        throw new Error(`Missing entry <requester> in configuration file`);
-                }
-            }
-            if (/^Cannot find module/.test(err.message))
-                throw new Error('Missing configuration file <config.js>');
-            throw new Error('An error occured when loading configuration.');
+            if (/^PDB_REQUESTER/.test(err.message))
+                throw err;
+            if (/^Cannot find module/.test(err.message) || err.code === 'ENOENT')
+                throw new Error(`PDB_REQUESTER: Missing configuration file '${configPath}'`);
+            throw new Error('PDB_REQUESTER: An error occured when loading configuration.');
         }
     }
     getServiceConfiguration() {

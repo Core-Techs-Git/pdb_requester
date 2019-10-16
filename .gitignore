@@ -40,3 +40,6 @@ desktop.ini
 
 # Build
 #dist
+
+# Configurations
+config.js

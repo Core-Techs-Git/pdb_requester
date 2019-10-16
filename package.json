@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "test": "jest",
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts --color ./src",
     "build": "npm run clean && npm run lint && tsc",
@@ -35,20 +36,21 @@
   },
   "dependencies": {
     "@types/request": "^2.48.3",
-    "http-proxy-agent": "^2.1.0",
-    "https-proxy-agent": "^2.2.2",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@types/http-proxy-agent": "^2.0.1",
+    "@types/jest": "^24.0.19",
     "@types/node": "^12.7.9",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
+    "jest": "^24.9.0",
+    "jest-junit": "^8.0.0",
     "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   }
 }

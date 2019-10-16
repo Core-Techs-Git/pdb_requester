@@ -22,19 +22,21 @@ export class Configuration implements ConfigurationInterface {
    * @param {string} serviceName Name of the service configuration to look for.
    */
   protected setServiceConfiguration(serviceName: string): void {
+    let configPath;
     try {
-      const configPath = resolve(process.cwd(), 'config.js');
-      const config = import(configPath);
-
+      configPath = resolve(process.cwd(), 'config.js');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const config = require(configPath);
       if (config.hasOwnProperty(serviceName.toLowerCase())) {
         this.serviceConfig = {
           name: serviceName.toLowerCase(),
           proxy: config[serviceName.toLowerCase()].proxy || false,
         };
-      } else throw new Error(`PDB_REQUESTER: Missing entry >> ${serviceName.toLowerCase()} << in configuration file`);
+      } else throw new Error(`PDB_REQUESTER: Missing entry '${serviceName.toLowerCase()}' in configuration file '${configPath}'`);
     } catch (err) {
       if (/^PDB_REQUESTER/.test(err.message)) throw err;
-      if (/^Cannot find module/.test(err.message)) throw new Error('PDB_REQUESTER: Missing configuration file >> config.js <<');
+      if (/^Cannot find module/.test(err.message) || err.code === 'ENOENT')
+        throw new Error(`PDB_REQUESTER: Missing configuration file '${configPath}'`);
       throw new Error('PDB_REQUESTER: An error occured when loading configuration.');
     }
   }

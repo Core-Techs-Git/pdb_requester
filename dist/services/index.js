@@ -5,5 +5,4 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./Requester"));
 __export(require("./Configuration"));
-__export(require("./HypertextTransfertProtocol"));
 //# sourceMappingURL=index.js.map

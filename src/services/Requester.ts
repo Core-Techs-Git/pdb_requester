@@ -15,7 +15,7 @@ export class Requester implements RequesterInterface {
 
   constructor(@inject(TYPES.ConfigurationInterface) config: ConfigurationInterface) {
     if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
-      throw new Error('Missing environment variable >> http_proxy <<.');
+      throw new Error("PDB_REQUESTER: Missing environment variable 'http_proxy'");
     this.config = config;
   }
 

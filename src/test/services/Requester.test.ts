@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import 'reflect-metadata';
 import {resolve} from 'path';
 import {writeFileSync, unlinkSync} from 'fs';
@@ -7,11 +8,15 @@ import {PARAMS, TYPES} from '../../const';
 import {inversifyContainer} from '../../lib';
 import {RequesterInterface} from '../../services';
 
+let tmpProxy;
 describe('Requester service', () => {
+  beforeAll(() => {
+    if (process.env.http_proxy) tmpProxy = process.env.http_proxy;
+  });
+
   test('Should make request through the proxy if set so', done => {
     const configPath = resolve(process.cwd(), 'config.js');
     writeFileSync(configPath, 'module.exports={search:{proxy:true}};');
-    // eslint-disable-next-line @typescript-eslint/camelcase
     process.env.http_proxy = 'http://host.name';
 
     if (inversifyContainer.isBound(PARAMS.SERVICE_NAME)) inversifyContainer.rebind(PARAMS.SERVICE_NAME).toConstantValue('search');
@@ -33,6 +38,7 @@ describe('Requester service', () => {
     try {
       configPath = resolve(process.cwd(), 'config.js');
       writeFileSync(configPath, 'module.exports={search:{proxy:true}};');
+      if (process.env.http_proxy) delete process.env.http_proxy;
 
       if (inversifyContainer.isBound(PARAMS.SERVICE_NAME)) inversifyContainer.rebind(PARAMS.SERVICE_NAME).toConstantValue('search');
       else inversifyContainer.bind(PARAMS.SERVICE_NAME).toConstantValue('search');
@@ -42,5 +48,9 @@ describe('Requester service', () => {
     } finally {
       unlinkSync(configPath);
     }
+  });
+
+  afterAll(() => {
+    if (tmpProxy) process.env.http_proxy = tmpProxy;
   });
 });

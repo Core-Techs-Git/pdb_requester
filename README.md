@@ -52,6 +52,13 @@ config.search = {
   proxy: false,    // true if requests must go through the proxy.
 };
 ...
+// An other possible config that will take advantage of baseUrl
+config.bills = {
+  protocol: 'https',
+  host:'bills.com',
+  path: 'hashcontent/', // Can be omitted
+  proxy: true,
+};
 module.exports = config;
 ```
 
@@ -76,6 +83,14 @@ requester.get(
     console.log('response', response);
     console.log('body', body);
   });
+...
+const request = require('requester')('bills');
+request('', // sub path like /anotherpath?with=params can be pass
+(err, response, body) => {
+  console.log('err', err);
+  console.log('response', response);
+  console.log('body', body);
+});
 ```
 
 ## How to contribute ?

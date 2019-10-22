@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts --color ./src",
     "build": "npm run clean && npm run lint && tsc",

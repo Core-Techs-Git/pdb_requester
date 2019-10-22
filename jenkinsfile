@@ -1,0 +1,69 @@
+pipeline {
+  agent any
+
+  parameters {
+    booleanParam defaultValue: false, description: 'Specify if publish stage should be run.', name: 'Publish'
+    choice choices: ['patch', 'minor', 'major'], description: 'Choose the publication version.', name: 'Version'
+  }
+
+  stages {
+    stage("Build") {
+      steps {
+        nodejs("v10.15.3") {
+          sh "npm install"
+          sh "npm run build"
+        }
+      }
+    }
+
+    stage("Test") {
+      steps {
+        nodejs("v10.15.3") {
+          sh "npm test"
+        }
+      }
+      post {
+        always {
+          junit allowEmptyResults: true, testResults: 'coverage/junit-report.xml'
+          publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Tests report', reportTitles: 'Tests code coverage'])
+        }
+      }
+    }
+
+    stage("Publish") {
+      when {
+        beforeAgent true
+        allOf{
+          branch 'master'
+          expression { return params.Publish ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
+        }
+      }
+
+      steps {
+        nodejs("v10.15.3") {
+          sh label: 'npm version', script: 'npm version -m "PUBLISHING V%s"'
+          sh "git push"
+          sh "npm publish"
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs deleteDirs: true, notFailBuild: true, patterns: [[pattern: 'node_modules/**', type: 'EXCLUDE']]
+    }
+    unstable {
+      office365ConnectorSend color: 'F1C40F', status: 'UNSTABLE', webhookUrl: env.OFFICE_365_CONNECTOR_URL
+    }
+    failure {
+      office365ConnectorSend color: 'E74C3C', status: 'FAILURE', webhookUrl: env.OFFICE_365_CONNECTOR_URL
+    }
+    success {
+      script {
+        if (params.Publish ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/)
+          office365ConnectorSend color: '1ABC9C', status: 'SUCCESS', webhookUrl: env.OFFICE_365_CONNECTOR_URL
+      }
+    }
+  }
+}

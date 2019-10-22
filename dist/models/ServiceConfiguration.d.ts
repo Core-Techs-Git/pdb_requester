@@ -5,4 +5,5 @@
 export declare type ServiceConfiguration = {
     name: string;
     proxy: boolean;
+    baseUrl?: string;
 };

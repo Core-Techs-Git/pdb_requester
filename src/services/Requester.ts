@@ -22,6 +22,7 @@ export class Requester implements RequesterInterface {
   getInstance(): RequestAPI<Request, CoreOptions, RequiredUriUrl> {
     return defaults({
       tunnel: false,
+      baseUrl: this.config.getServiceConfiguration().baseUrl || '',
       proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : false,
     });
   }

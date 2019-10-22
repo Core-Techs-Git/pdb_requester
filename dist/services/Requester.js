@@ -24,6 +24,7 @@ let Requester = class Requester {
     getInstance() {
         return request_1.defaults({
             tunnel: false,
+            baseUrl: this.config.getServiceConfiguration().baseUrl || '',
             proxy: this.config.getServiceConfiguration().proxy ? process.env.http_proxy : false,
         });
     }

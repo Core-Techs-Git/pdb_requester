@@ -27,12 +27,23 @@ export class Configuration implements ConfigurationInterface {
       configPath = resolve(process.cwd(), 'config.js');
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const config = require(configPath);
-      if (config.hasOwnProperty(serviceName.toLowerCase())) {
+      serviceName = serviceName.toLowerCase();
+      if (config.hasOwnProperty(serviceName)) {
         this.serviceConfig = {
-          name: serviceName.toLowerCase(),
-          proxy: config[serviceName.toLowerCase()].proxy || false,
+          name: serviceName,
+          proxy: config[serviceName].proxy || false,
         };
-      } else throw new Error(`PDB_REQUESTER: Missing entry '${serviceName.toLowerCase()}' in configuration file '${configPath}'`);
+
+        if (config[serviceName].protocol && config[serviceName].host) {
+          if (config[serviceName].protocol !== 'http' && config[serviceName].protocol !== 'https')
+            throw new Error(`PDB_REQUESTER: Invalid protocol for entry '${serviceName}' in configuration file '${configPath}'`);
+          this.serviceConfig.baseUrl = `${config[serviceName].protocol}://${config[serviceName].host}/`;
+          if (config[serviceName].path) {
+            config[serviceName].path = config[serviceName].path.replace(/^\//, ''); // Remove first character if it's /
+            this.serviceConfig.baseUrl += `${config[serviceName].path}`;
+          }
+        }
+      } else throw new Error(`PDB_REQUESTER: Missing entry '${serviceName}' in configuration file '${configPath}'`);
     } catch (err) {
       if (/^PDB_REQUESTER/.test(err.message)) throw err;
       if (/^Cannot find module/.test(err.message) || err.code === 'ENOENT')

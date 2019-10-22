@@ -14,6 +14,10 @@ describe('Requester service', () => {
     if (process.env.http_proxy) tmpProxy = process.env.http_proxy;
   });
 
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   test('Should make request through the proxy if set so', done => {
     const configPath = resolve(process.cwd(), 'config.js');
     writeFileSync(configPath, 'module.exports={search:{proxy:true}};');
@@ -29,6 +33,26 @@ describe('Requester service', () => {
     requester('https://laplateforme.com/', err => {
       expect(err.code).toBe('ENOTFOUND');
       expect(err.host).toBe('host.name');
+      done();
+    });
+  });
+
+  test('Should make request using baseUrl if set so', done => {
+    const configPath = resolve(process.cwd(), 'config.js');
+    writeFileSync(configPath, "module.exports={search:{proxy:false,protocol:'https',host:'somehost.name',path:'/path'}};");
+
+    if (inversifyContainer.isBound(PARAMS.SERVICE_NAME)) inversifyContainer.rebind(PARAMS.SERVICE_NAME).toConstantValue('search');
+    else inversifyContainer.bind(PARAMS.SERVICE_NAME).toConstantValue('search');
+    const requester: RequestAPI<Request, CoreOptions, RequiredUriUrl> = inversifyContainer
+      .get<RequesterInterface>(TYPES.RequesterInterface)
+      .getInstance();
+
+    unlinkSync(configPath);
+    // Can also be an empty string
+    requester('/other-path', err => {
+      expect(err.code).toBe('ENOTFOUND');
+      expect(err.host).toBe('somehost.name');
+      expect(err.port).toBe(443);
       done();
     });
   });

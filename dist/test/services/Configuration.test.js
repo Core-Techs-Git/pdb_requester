@@ -11,7 +11,7 @@ describe('Configuration service', () => {
     });
     test('Should return service proxy config if correctly configured', () => {
         const configPath = path_1.resolve(process.cwd(), 'config.js');
-        fs_1.writeFileSync(configPath, 'module.exports={search:{proxy:true}};');
+        fs_1.writeFileSync(configPath, "module.exports={search:{proxy:true,protocol:'https',host:'host.name',path:'/path'}};");
         if (lib_1.inversifyContainer.isBound(const_1.PARAMS.SERVICE_NAME))
             lib_1.inversifyContainer.rebind(const_1.PARAMS.SERVICE_NAME).toConstantValue('search');
         else
@@ -20,6 +20,25 @@ describe('Configuration service', () => {
         fs_1.unlinkSync(configPath);
         expect(config.name).toBe('search');
         expect(config.proxy).toBe(true);
+        expect(config.baseUrl).toBe('https://host.name/path');
+    });
+    test("Should throw an error if service protocol config isn't http or https", () => {
+        let configPath;
+        try {
+            configPath = path_1.resolve(process.cwd(), 'config.js');
+            fs_1.writeFileSync(configPath, "module.exports={search:{protocol:'wrong'}};");
+            if (lib_1.inversifyContainer.isBound(const_1.PARAMS.SERVICE_NAME))
+                lib_1.inversifyContainer.rebind(const_1.PARAMS.SERVICE_NAME).toConstantValue('search');
+            else
+                lib_1.inversifyContainer.bind(const_1.PARAMS.SERVICE_NAME).toConstantValue('search');
+            lib_1.inversifyContainer.get(const_1.TYPES.ConfigurationInterface);
+        }
+        catch (err) {
+            expect(err.message).toBe(`PDB_REQUESTER: Invalid protocol for entry 'search' in configuration file '${configPath}'`);
+        }
+        finally {
+            fs_1.unlinkSync(configPath);
+        }
     });
     test('Should throw an error if service proxy config is missing', () => {
         let configPath;

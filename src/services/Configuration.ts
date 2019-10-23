@@ -14,6 +14,7 @@ export class Configuration implements ConfigurationInterface {
   protected serviceConfig: ServiceConfiguration;
 
   constructor(@inject(PARAMS.SERVICE_NAME) serviceName: string) {
+    this.setMissingCertificateAuthorities();
     this.setServiceConfiguration(serviceName);
   }
 
@@ -47,6 +48,17 @@ export class Configuration implements ConfigurationInterface {
 
   getServiceConfiguration(): ServiceConfiguration {
     return this.serviceConfig;
+  }
+
+  /**
+   * Set root, intermadiate and extra certificates.
+   */
+  protected setMissingCertificateAuthorities(): void {
+    if (process.env.NODE_EXTRA_CA_CERTS) {
+      const rootCas = require('ssl-root-cas/latest').create();
+      rootCas.addFile(process.env.NODE_EXTRA_CA_CERTS);
+      require('https').globalAgent.options.ca = rootCas;
+    }
   }
 }
 

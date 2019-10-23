@@ -17,6 +17,7 @@ const inversify_1 = require("inversify");
 const const_1 = require("../const");
 let Configuration = class Configuration {
     constructor(serviceName) {
+        this.setMissingCertificateAuthorities();
         this.setServiceConfiguration(serviceName);
     }
     /**
@@ -50,6 +51,16 @@ let Configuration = class Configuration {
     }
     getServiceConfiguration() {
         return this.serviceConfig;
+    }
+    /**
+     * Set root, intermadiate and extra certificates.
+     */
+    setMissingCertificateAuthorities() {
+        if (process.env.NODE_EXTRA_CA_CERTS) {
+            const rootCas = require('ssl-root-cas/latest').create();
+            rootCas.addFile(process.env.NODE_EXTRA_CA_CERTS);
+            require('https').globalAgent.options.ca = rootCas;
+        }
     }
 };
 Configuration = __decorate([

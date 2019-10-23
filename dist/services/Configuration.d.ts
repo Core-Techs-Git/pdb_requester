@@ -13,6 +13,10 @@ export declare class Configuration implements ConfigurationInterface {
      */
     protected setServiceConfiguration(serviceName: string): void;
     getServiceConfiguration(): ServiceConfiguration;
+    /**
+     * Set root, intermadiate and extra certificates.
+     */
+    protected setMissingCertificateAuthorities(): void;
 }
 /**
  * Configuration loader.

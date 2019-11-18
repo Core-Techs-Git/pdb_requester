@@ -68,6 +68,9 @@ pipeline {
     failure {
       office365ConnectorSend color: 'E74C3C', status: 'FAILURE', webhookUrl: env.OFFICE_365_CONNECTOR_URL
     }
+    fixed {
+      office365ConnectorSend color: '1ABC9C', status: 'FIXED', webhookUrl: env.OFFICE_365_CONNECTOR_URL
+    }
     success {
       script {
         if (params.Publish ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/)

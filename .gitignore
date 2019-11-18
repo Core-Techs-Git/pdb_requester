@@ -42,4 +42,5 @@ desktop.ini
 #dist
 
 # Configurations
+.npmrc
 config.js

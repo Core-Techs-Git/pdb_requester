@@ -4,7 +4,7 @@ import {resolve} from 'path';
 import {writeFileSync, unlinkSync} from 'fs';
 
 let tmpProxy;
-describe('Pdb_requester', () => {
+describe('PDB Requester', () => {
   beforeAll(() => {
     if (process.env.http_proxy) tmpProxy = process.env.http_proxy;
   });

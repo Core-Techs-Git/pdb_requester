@@ -39,12 +39,15 @@ Thumbs.db
 desktop.ini
 
 # No need to be in package
+*.js.map
 .eslintignore
 .eslintrc.js
 .prettierignore
 .prettierrc
+config.js
+jenkinsfile
 jest.config.js
 tsconfig.json
+
 src
 dist/test
-config.js

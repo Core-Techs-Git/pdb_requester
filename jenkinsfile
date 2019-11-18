@@ -10,7 +10,7 @@ pipeline {
     stage("Build") {
       steps {
         nodejs("v10.15.3") {
-          sh "npm install"
+          sh "npm ci"
           sh "npm run build"
         }
       }
@@ -41,9 +41,18 @@ pipeline {
 
       steps {
         nodejs("v10.15.3") {
-          sh label: 'npm version', script: 'npm version -m "PUBLISHING V%s"'
-          sh "git push"
-          sh "npm publish"
+          configFileProvider([configFile(fileId: '.npmrc', targetLocation: '.npmrc')]) {
+            withCredentials([
+              string(credentialsId: 'GITHUB_USER_EMAIL', variable: 'GITHUB_USER_EMAIL'),
+              usernamePassword(credentialsId: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USERNAME')
+            ]) {
+              sh label: 'git config user.email', script: "git config user.email \"${GITHUB_USER_EMAIL}\""
+              sh label: 'git config user.name', script: "git config user.name \"${GITHUB_USERNAME}\""
+              sh label: 'npm version', script: "npm version --verbose ${params.Version} -m \"PUBLISHING V%s\""
+              sh label: 'git push', script: "git push https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/cstephf/test.git HEAD:${env.BRANCH_NAME}"
+              sh "npm publish"
+            }
+          }
         }
       }
     }
@@ -51,7 +60,7 @@ pipeline {
 
   post {
     always {
-      cleanWs deleteDirs: true, notFailBuild: true, patterns: [[pattern: 'node_modules/**', type: 'EXCLUDE']]
+      cleanWs deleteDirs: true, notFailBuild: true
     }
     unstable {
       office365ConnectorSend color: 'F1C40F', status: 'UNSTABLE', webhookUrl: env.OFFICE_365_CONNECTOR_URL

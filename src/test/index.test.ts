@@ -21,6 +21,7 @@ describe('PDB Requester', () => {
     });
 
     unlinkSync(configPath);
+    expect(1).toBe(2);
     expect(JSON.stringify(requester)).toBe(JSON.stringify(request));
   });
 

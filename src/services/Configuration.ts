@@ -55,7 +55,7 @@ export class Configuration implements ConfigurationInterface {
    */
   protected setMissingCertificateAuthorities(): void {
     if (process.env.NODE_EXTRA_CA_CERTS) {
-      const rootCas = require('ssl-root-cas/latest').create();
+      const rootCas = require('ssl-root-cas').create();
       rootCas.addFile(process.env.NODE_EXTRA_CA_CERTS);
       require('https').globalAgent.options.ca = rootCas;
     }

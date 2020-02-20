@@ -1,13 +1,20 @@
 "use strict";
+require("module-alias/register");
 require("reflect-metadata");
-const lib_1 = require("./lib");
-const const_1 = require("./const");
+const const_1 = require("@pdb_requester/const");
+const error_1 = require("@pdb_requester/error");
+const lib_1 = require("@pdb_requester/lib");
 module.exports = (serviceName) => {
-    if (lib_1.inversifyContainer.isBound(const_1.PARAMS.SERVICE_NAME))
-        lib_1.inversifyContainer.rebind(const_1.PARAMS.SERVICE_NAME).toConstantValue(serviceName.toLowerCase());
-    else
-        lib_1.inversifyContainer.bind(const_1.PARAMS.SERVICE_NAME).toConstantValue(serviceName.toLowerCase());
-    const requester = lib_1.inversifyContainer.get(const_1.TYPES.RequesterInterface);
-    return requester.getInstance();
+    try {
+        if (lib_1.inversifyContainer.isBound(const_1.PARAMS.SERVICE_NAME))
+            lib_1.inversifyContainer.rebind(const_1.PARAMS.SERVICE_NAME).toConstantValue(serviceName);
+        else
+            lib_1.inversifyContainer.bind(const_1.PARAMS.SERVICE_NAME).toConstantValue(serviceName);
+        const requester = lib_1.inversifyContainer.get(const_1.TYPES.RequesterInterface);
+        return requester.getInstance();
+    }
+    catch (err) {
+        throw new error_1.RequesterError(err);
+    }
 };
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,7 @@
 import {Container} from 'inversify';
 
-import {TYPES} from '../const';
-import {Requester, RequesterInterface, ConfigurationInterface, Configuration} from '../services';
+import {TYPES} from '@pdb_requester/const';
+import {Requester, RequesterInterface, ConfigurationInterface, Configuration} from '@pdb_requester/services';
 
 const container = new Container();
 //  Define autowiring by binding interfaces to instanciated class.

@@ -1,8 +1,9 @@
 import {inject, injectable} from 'inversify';
 import {RequestAPI, Request, CoreOptions, RequiredUriUrl, defaults} from 'request';
 
-import {TYPES} from '../const';
-import {ConfigurationInterface} from './Configuration';
+import {TYPES} from '@pdb_requester/const';
+import {RequesterError} from '@pdb_requester/error';
+import {ConfigurationInterface} from '@pdb_requester/services/Configuration';
 
 @injectable()
 export class Requester implements RequesterInterface {
@@ -15,7 +16,7 @@ export class Requester implements RequesterInterface {
 
   constructor(@inject(TYPES.ConfigurationInterface) config: ConfigurationInterface) {
     if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
-      throw new Error("PDB_REQUESTER: Missing environment variable 'http_proxy'");
+      throw new RequesterError("Missing environment variable 'http_proxy'");
     this.config = config;
   }
 

@@ -3,7 +3,8 @@
  * @typedef {Object} ServiceConfiguration
  */
 export type ServiceConfiguration = {
-  name: string;
   proxy: boolean;
   baseUrl?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [prop: string]: any;
 };

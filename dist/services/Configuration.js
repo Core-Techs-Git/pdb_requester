@@ -12,11 +12,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
+const config_1 = require("config");
 const inversify_1 = require("inversify");
-const const_1 = require("../const");
+const const_1 = require("@pdb_requester/const");
+const error_1 = require("@pdb_requester/error");
 let Configuration = class Configuration {
     constructor(serviceName) {
+        this.setMissingCertificateAuthorities();
         this.setServiceConfiguration(serviceName);
     }
     /**
@@ -24,40 +26,49 @@ let Configuration = class Configuration {
      * @param {string} serviceName Name of the service configuration to look for.
      */
     setServiceConfiguration(serviceName) {
-        let configPath;
+        if (!serviceName)
+            throw new error_1.ConfigurationError('Missing configuration service name');
+        if (typeof serviceName !== 'string')
+            throw new error_1.ConfigurationError('Invalid configuration service name');
         try {
-            configPath = path_1.resolve(process.cwd(), 'config.js');
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const config = require(configPath);
             serviceName = serviceName.toLowerCase();
-            if (config.hasOwnProperty(serviceName)) {
+            if (config_1.has(serviceName)) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const config = config_1.get(serviceName);
                 this.serviceConfig = {
-                    name: serviceName,
-                    proxy: config[serviceName].proxy || false,
+                    proxy: config.proxy || false,
                 };
-                if (config[serviceName].protocol && config[serviceName].host) {
-                    if (config[serviceName].protocol !== 'http' && config[serviceName].protocol !== 'https')
-                        throw new Error(`PDB_REQUESTER: Invalid protocol for entry '${serviceName}' in configuration file '${configPath}'`);
-                    this.serviceConfig.baseUrl = `${config[serviceName].protocol}://${config[serviceName].host}/`;
-                    if (config[serviceName].path) {
-                        config[serviceName].path = config[serviceName].path.replace(/^\//, ''); // Remove first character if it's /
-                        this.serviceConfig.baseUrl += `${config[serviceName].path}`;
+                if (config.protocol && config.host) {
+                    if (!/^https?$/.test(config.protocol))
+                        throw new error_1.ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
+                    this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
+                    if (config.path) {
+                        config.path = config.path.replace(/^\//, ''); // Remove first character if it's /
+                        this.serviceConfig.baseUrl += `${config.path}`;
                     }
                 }
             }
             else
-                throw new Error(`PDB_REQUESTER: Missing entry '${serviceName}' in configuration file '${configPath}'`);
+                throw new error_1.ConfigurationError(`Missing entry '${serviceName}' in configuration`);
         }
         catch (err) {
-            if (/^PDB_REQUESTER/.test(err.message))
+            if (err instanceof error_1.ConfigurationError)
                 throw err;
-            if (/^Cannot find module/.test(err.message) || err.code === 'ENOENT')
-                throw new Error(`PDB_REQUESTER: Missing configuration file '${configPath}'`);
-            throw new Error('PDB_REQUESTER: An error occured when loading configuration.');
+            throw new error_1.ConfigurationError(`An error occured when loading configuration — ${err.stack}`);
         }
     }
     getServiceConfiguration() {
         return this.serviceConfig;
+    }
+    /**
+     * Set root, intermadiate and extra certificates.
+     */
+    setMissingCertificateAuthorities() {
+        if (process.env.NODE_EXTRA_CA_CERTS) {
+            const rootCas = require('ssl-root-cas').create();
+            rootCas.addFile(process.env.NODE_EXTRA_CA_CERTS);
+            require('https').globalAgent.options.ca = rootCas;
+        }
     }
 };
 Configuration = __decorate([

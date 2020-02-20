@@ -14,11 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const inversify_1 = require("inversify");
 const request_1 = require("request");
-const const_1 = require("../const");
+const const_1 = require("@pdb_requester/const");
+const error_1 = require("@pdb_requester/error");
 let Requester = class Requester {
     constructor(config) {
         if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
-            throw new Error("PDB_REQUESTER: Missing environment variable 'http_proxy'");
+            throw new error_1.RequesterError("Missing environment variable 'http_proxy'");
         this.config = config;
     }
     getInstance() {

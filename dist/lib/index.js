@@ -7,6 +7,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const container = __importStar(require("./inversify"));
+const container = __importStar(require("@pdb_requester/lib/inversify"));
 exports.inversifyContainer = container.default;
 //# sourceMappingURL=index.js.map

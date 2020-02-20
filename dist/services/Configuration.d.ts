@@ -1,7 +1,7 @@
-import { ServiceConfiguration } from '../models';
+import { ServiceConfiguration } from '@pdb_requester/models';
 export declare class Configuration implements ConfigurationInterface {
     /**
-     * Configuration the specify service.
+     * Configuration of the specify service.
      * @typedef ServiceConfiguration
      * @access protected
      */
@@ -13,6 +13,10 @@ export declare class Configuration implements ConfigurationInterface {
      */
     protected setServiceConfiguration(serviceName: string): void;
     getServiceConfiguration(): ServiceConfiguration;
+    /**
+     * Set root, intermadiate and extra certificates.
+     */
+    protected setMissingCertificateAuthorities(): void;
 }
 /**
  * Configuration loader.

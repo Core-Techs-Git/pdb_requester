@@ -3,7 +3,7 @@
  * @typedef {Object} ServiceConfiguration
  */
 export declare type ServiceConfiguration = {
-    name: string;
     proxy: boolean;
     baseUrl?: string;
+    [prop: string]: any;
 };

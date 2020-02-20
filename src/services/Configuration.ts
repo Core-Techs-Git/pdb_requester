@@ -1,19 +1,21 @@
-import {resolve} from 'path';
+import {has, get} from 'config';
 import {inject, injectable} from 'inversify';
 
-import {PARAMS} from '../const';
-import {ServiceConfiguration} from '../models';
+import {PARAMS} from '@pdb_requester/const';
+import {ConfigurationError} from '@pdb_requester/error';
+import {ServiceConfiguration} from '@pdb_requester/models';
 
 @injectable()
 export class Configuration implements ConfigurationInterface {
   /**
-   * Configuration the specify service.
+   * Configuration of the specify service.
    * @typedef ServiceConfiguration
    * @access protected
    */
   protected serviceConfig: ServiceConfiguration;
 
   constructor(@inject(PARAMS.SERVICE_NAME) serviceName: string) {
+    this.setMissingCertificateAuthorities();
     this.setServiceConfiguration(serviceName);
   }
 
@@ -22,38 +24,46 @@ export class Configuration implements ConfigurationInterface {
    * @param {string} serviceName Name of the service configuration to look for.
    */
   protected setServiceConfiguration(serviceName: string): void {
-    let configPath;
+    if (!serviceName) throw new ConfigurationError('Missing configuration service name');
+    if (typeof serviceName !== 'string') throw new ConfigurationError('Invalid configuration service name');
     try {
-      configPath = resolve(process.cwd(), 'config.js');
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const config = require(configPath);
       serviceName = serviceName.toLowerCase();
-      if (config.hasOwnProperty(serviceName)) {
+      if (has(serviceName)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const config: {[prop: string]: any} = get(serviceName);
+
         this.serviceConfig = {
-          name: serviceName,
-          proxy: config[serviceName].proxy || false,
+          proxy: config.proxy || false,
         };
 
-        if (config[serviceName].protocol && config[serviceName].host) {
-          if (config[serviceName].protocol !== 'http' && config[serviceName].protocol !== 'https')
-            throw new Error(`PDB_REQUESTER: Invalid protocol for entry '${serviceName}' in configuration file '${configPath}'`);
-          this.serviceConfig.baseUrl = `${config[serviceName].protocol}://${config[serviceName].host}/`;
-          if (config[serviceName].path) {
-            config[serviceName].path = config[serviceName].path.replace(/^\//, ''); // Remove first character if it's /
-            this.serviceConfig.baseUrl += `${config[serviceName].path}`;
+        if (config.protocol && config.host) {
+          if (!/^https?$/.test(config.protocol)) throw new ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
+          this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
+          if (config.path) {
+            config.path = config.path.replace(/^\//, ''); // Remove first character if it's /
+            this.serviceConfig.baseUrl += `${config.path}`;
           }
         }
-      } else throw new Error(`PDB_REQUESTER: Missing entry '${serviceName}' in configuration file '${configPath}'`);
+      } else throw new ConfigurationError(`Missing entry '${serviceName}' in configuration`);
     } catch (err) {
-      if (/^PDB_REQUESTER/.test(err.message)) throw err;
-      if (/^Cannot find module/.test(err.message) || err.code === 'ENOENT')
-        throw new Error(`PDB_REQUESTER: Missing configuration file '${configPath}'`);
-      throw new Error('PDB_REQUESTER: An error occured when loading configuration.');
+      if (err instanceof ConfigurationError) throw err;
+      throw new ConfigurationError(`An error occured when loading configuration — ${err.stack}`);
     }
   }
 
   getServiceConfiguration(): ServiceConfiguration {
     return this.serviceConfig;
+  }
+
+  /**
+   * Set root, intermadiate and extra certificates.
+   */
+  protected setMissingCertificateAuthorities(): void {
+    if (process.env.NODE_EXTRA_CA_CERTS) {
+      const rootCas = require('ssl-root-cas').create();
+      rootCas.addFile(process.env.NODE_EXTRA_CA_CERTS);
+      require('https').globalAgent.options.ca = rootCas;
+    }
   }
 }
 

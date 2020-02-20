@@ -6,6 +6,11 @@
 
 # PDB REQUESTER
 
+[![Built with TypeScript](https://img.shields.io/npm/v/typescript?color=007ACC&label=Typescript&logo=typescript&logoColor=007ACC)](https://github.com/microsoft/TypeScript)
+[![Tested with Jest](https://img.shields.io/npm/v/jest?color=C21325&label=Jest&logo=jest&logoColor=C21325)](https://github.com/facebook/jest)
+[![Code Style Eslint](https://img.shields.io/npm/v/eslint?color=4B32C3&label=Eslint&logo=eslint&logoColor=4B32C3)](https://github.com/eslint/eslint)
+[![Code Style Prettier](https://img.shields.io/npm/v/prettier?label=Prettier&color=F7B93E&logo=prettier&logoColor=F7B93E)](https://github.com/prettier/prettier)
+
 Part of the **[La Plateform du bâtiment](https://www.laplateforme.com/)** environment, this module is responsible for the management of the requests made to external services via a proxy (or not, according to the configuration).
 
 ## Features
@@ -41,7 +46,7 @@ $ npm i -S @core-techs-git/pdb_requester
   <p><b><i><a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">PERSONAL-ACCESS-TOKEN</a></i></b> is generated in github settings.</p>
 </details>
 
-2. Edit your configuration file _`config.js`_ located at the root of your project
+2. Edit your configuration file _`config/dev.js`_ located at the root of your project. [config](https://github.com/lorenwest/node-config) module is used to load the right environment configurations.
 
 ```JavaScript
 const config = {};
@@ -104,14 +109,11 @@ $ git clone git@github.com:Core-Techs-Git/pdb_requester.git
 2. Install dependencies with `npm`
 
 ```Shell
-$ npm i
+$ npm ci
 ```
 
 That's it you're all setup and can start contributing :thumbsup:.
 
 ## Modules and techs used
 
-[<img src="https://s.gravatar.com/avatar/3e2b342616822f8eabc9dd393840db4a?size=100&default=retro" width="100"/>](http://www.typescriptlang.org 'Typescript')&nbsp;&nbsp;&nbsp;&nbsp;
-[<img src="https://eslint.org/assets/img/logo.svg" width="100"/>](https://eslint.org 'Eslint')&nbsp;&nbsp;&nbsp;&nbsp;
-[<img src="https://avatars0.githubusercontent.com/u/11887183?s=200&v=4" width="100"/>](http://inversify.io/ 'Inversify')&nbsp;&nbsp;&nbsp;&nbsp;
-[<img src="https://cdn.worldvectorlogo.com/logos/jest-0.svg" width="100"/>](https://jestjs.io 'Jest')&nbsp;&nbsp;&nbsp;&nbsp;
+[<img src="https://avatars0.githubusercontent.com/u/11887183?s=200&v=4" width="80"/>](http://inversify.io/ 'Inversify')&nbsp;&nbsp;&nbsp;&nbsp;

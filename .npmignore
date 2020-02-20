@@ -50,4 +50,4 @@ jest.config.js
 tsconfig.json
 
 src
-dist/test
+test

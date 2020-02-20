@@ -1,16 +1,35 @@
 module.exports = {
   verbose: true,
-  testMatch: ['**/*.test.js'],
+  testMatch: ['**/*.test.ts'],
+  transform: {
+    '^.+\\.ts': 'ts-jest',
+  },
+  moduleNameMapper: {
+    '^@pdb_requester/(.+)$': '<rootDir>/src/$1',
+  },
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.json',
+    },
+  },
   coverageReporters: ['lcov'],
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.js', '!jest.config.js', '!**/coverage/**', '!**/node_modules/**', '!**/test/**', '!**/src/**'],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+  collectCoverageFrom: ['src/**/*.ts', '!jest.config.js', '!.eslint.js', '!**/coverage/**', '!**/node_modules/**', '!**/test/**'],
   coverageDirectory: 'coverage',
   reporters: [
     'default',
     [
       'jest-junit',
       {
-        suiteName: 'pdb_requester tests',
+        suiteName: 'Integgration tests',
         outputName: 'junit-report.xml',
         outputDirectory: 'coverage',
         classNameTemplate: '{title}',

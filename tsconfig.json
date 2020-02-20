@@ -21,6 +21,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
+      "@pdb_requester/*": [
+        "src/*"
+      ],
       "*": [
         "node_modules/*"
       ]

@@ -1,2 +1,2 @@
-export * from '@pdb_requester/const/types';
-export * from '@pdb_requester/const/params';
+export * from '@/const/types';
+export * from '@/const/params';

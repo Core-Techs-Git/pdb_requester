@@ -1,5 +1,5 @@
 import { RequestAPI, Request, CoreOptions, RequiredUriUrl } from 'request';
-import { ConfigurationInterface } from '@pdb_requester/services/Configuration';
+import { ConfigurationInterface } from '@/services/Configuration';
 export declare class Requester implements RequesterInterface {
     /**
      * Service configuration.

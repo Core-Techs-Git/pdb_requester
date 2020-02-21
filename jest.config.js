@@ -5,11 +5,11 @@ module.exports = {
     '^.+\\.ts': 'ts-jest',
   },
   moduleNameMapper: {
-    '^@pdb_requester/(.+)$': '<rootDir>/src/$1',
+    '^@/(.+)$': '<rootDir>/src/$1',
   },
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.json',
+      tsConfig: 'tsconfig.test.json',
     },
   },
   coverageReporters: ['lcov'],

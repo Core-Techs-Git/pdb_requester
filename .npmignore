@@ -42,6 +42,7 @@ desktop.ini
 *.js.map
 .eslintignore
 .eslintrc.js
+.madgerc
 .prettierignore
 .prettierrc
 config.js

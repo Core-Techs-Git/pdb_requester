@@ -10,7 +10,7 @@
     "analysis:dependency": "check-audit",
     "analysis:lint": "eslint --ext .ts --color ./src",
     "analysis:style": "prettier --check src/**/*.ts",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && tspath -f",
     "test": "jest --runInBand --silent --colors",
     "watch": "npm run build -- -w"
   },
@@ -35,16 +35,11 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "_moduleAliases": {
-    "@pdb_requester": "dist"
-  },
   "dependencies": {
     "@types/config": "0.0.36",
-    "@types/module-alias": "^2.0.0",
     "@types/request": "^2.48.4",
     "config": "^3.2.5",
     "inversify": "^5.0.1",
-    "module-alias": "^2.2.2",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "ssl-root-cas": "^1.3.1"
@@ -64,6 +59,7 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^24.3.0",
+    "tspath": "^1.3.7",
     "typescript": "^3.7.5"
   }
 }

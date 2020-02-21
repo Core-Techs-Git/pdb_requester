@@ -1,2 +1,2 @@
-import * as container from '@pdb_requester/lib/inversify';
+import * as container from '@/lib/inversify';
 export const inversifyContainer = container.default;

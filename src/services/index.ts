@@ -1,2 +1,2 @@
-export * from '@pdb_requester/services/Requester';
-export * from '@pdb_requester/services/Configuration';
+export * from '@/services/Requester';
+export * from '@/services/Configuration';

@@ -1,9 +1,9 @@
 import {inject, injectable} from 'inversify';
 import {RequestAPI, Request, CoreOptions, RequiredUriUrl, defaults} from 'request';
 
-import {TYPES} from '@pdb_requester/const';
-import {RequesterError} from '@pdb_requester/error';
-import {ConfigurationInterface} from '@pdb_requester/services/Configuration';
+import {TYPES} from '@/const';
+import {RequesterError} from '@/error';
+import {ConfigurationInterface} from '@/services/Configuration';
 
 @injectable()
 export class Requester implements RequesterInterface {

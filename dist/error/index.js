@@ -1,8 +1,1 @@
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("@pdb_requester/error/RequesterError"));
-__export(require("@pdb_requester/error/ConfigurationError"));
-//# sourceMappingURL=index.js.map
+'use strict';function __export(m){for(var p in m)if(!exports.hasOwnProperty(p))exports[p]=m[p];}Object.defineProperty(exports,'__esModule',{value:true});__export(require('./RequesterError'));__export(require('./ConfigurationError'));

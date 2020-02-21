@@ -1,11 +1,10 @@
-import 'module-alias/register';
 import 'reflect-metadata';
 import {RequestAPI, Request, CoreOptions, RequiredUriUrl} from 'request';
 
-import {TYPES, PARAMS} from '@pdb_requester/const';
-import {RequesterError} from '@pdb_requester/error';
-import {inversifyContainer} from '@pdb_requester/lib';
-import {RequesterInterface} from '@pdb_requester/services';
+import {TYPES, PARAMS} from '@/const';
+import {RequesterError} from '@/error';
+import {inversifyContainer} from '@/lib';
+import {RequesterInterface} from '@/services';
 
 /**
  * Makes requests according to defined configuration.

@@ -1,4 +1,3 @@
-import 'module-alias/register';
 import 'reflect-metadata';
 import { RequestAPI, Request, CoreOptions, RequiredUriUrl } from 'request';
 declare const _default: (serviceName: string) => RequestAPI<Request, CoreOptions, RequiredUriUrl>;

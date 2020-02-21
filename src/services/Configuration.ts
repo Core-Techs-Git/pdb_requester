@@ -1,9 +1,9 @@
 import {has, get} from 'config';
 import {inject, injectable} from 'inversify';
 
-import {PARAMS} from '@pdb_requester/const';
-import {ConfigurationError} from '@pdb_requester/error';
-import {ServiceConfiguration} from '@pdb_requester/models';
+import {PARAMS} from '@/const';
+import {ConfigurationError} from '@/error';
+import {ServiceConfiguration} from '@/models';
 
 @injectable()
 export class Configuration implements ConfigurationInterface {

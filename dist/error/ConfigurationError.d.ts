@@ -1,3 +1,3 @@
-import { RequesterError } from '@pdb_requester/error/RequesterError';
+import { RequesterError } from '@/error/RequesterError';
 export declare class ConfigurationError extends RequesterError {
 }

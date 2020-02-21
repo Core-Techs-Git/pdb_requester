@@ -1,1 +1,1 @@
-export * from '@pdb_requester/models/ServiceConfiguration';
+export * from '@/models/ServiceConfiguration';

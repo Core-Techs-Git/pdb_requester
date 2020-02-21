@@ -6,10 +6,12 @@
 
 # PDB REQUESTER
 
-[![Built with TypeScript](https://img.shields.io/npm/v/typescript?color=007ACC&label=Typescript&logo=typescript&logoColor=007ACC)](https://github.com/microsoft/TypeScript)
-[![Tested with Jest](https://img.shields.io/npm/v/jest?color=C21325&label=Jest&logo=jest&logoColor=C21325)](https://github.com/facebook/jest)
-[![Code Style Eslint](https://img.shields.io/npm/v/eslint?color=4B32C3&label=Eslint&logo=eslint&logoColor=4B32C3)](https://github.com/eslint/eslint)
-[![Code Style Prettier](https://img.shields.io/npm/v/prettier?label=Prettier&color=F7B93E&logo=prettier&logoColor=F7B93E)](https://github.com/prettier/prettier)
+[![Built with TypeScript](https://img.shields.io/npm/v/typescript?color=007ACC&label=Typescript&logo=typescript)](https://github.com/microsoft/TypeScript)
+[![Tested with Jest](https://img.shields.io/npm/v/jest?color=C21325&label=Jest&logo=jest)](https://github.com/facebook/jest)
+[![Code Style Eslint](https://img.shields.io/npm/v/eslint?color=4B32C3&label=Eslint&logo=eslint)](https://github.com/eslint/eslint)
+[![Code Style Prettier](https://img.shields.io/npm/v/prettier?color=F7B93E&label=Prettier&logo=prettier)](https://github.com/prettier/prettier)
+[![Latest tag](https://img.shields.io/github/v/tag/Core-Techs-Git/pdb_requester?color=f87a15)](https://github.com/Core-Techs-Git/pdb_requester/tags)
+![Latest tag](https://img.shields.io/github/commits-since/Core-Techs-Git/pdb_requester/latest?color=f87a15)
 
 Part of the **[La Plateform du bâtiment](https://www.laplateforme.com/)** environment, this module is responsible for the management of the requests made to external services via a proxy (or not, according to the configuration).
 
@@ -45,6 +47,12 @@ $ npm i -S @core-techs-git/pdb_requester
   </ul>
   <p><b><i><a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">PERSONAL-ACCESS-TOKEN</a></i></b> is generated in github settings.</p>
 </details>
+
+You may want to install from github url:
+
+```Shell
+$ npm i -S Core-Techs-Git/pdb_requester.git[#<commit-ish>]
+```
 
 2. Edit your configuration file _`config/dev.js`_ located at the root of your project. [config](https://github.com/lorenwest/node-config) module is used to load the right environment configurations.
 

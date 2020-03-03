@@ -39,10 +39,7 @@ export class Configuration implements ConfigurationInterface {
         if (config.protocol && config.host) {
           if (!/^https?$/.test(config.protocol)) throw new ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
           this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
-          if (config.path) {
-            config.path = config.path.replace(/^\//, ''); // Remove first character if it's /
-            this.serviceConfig.baseUrl += `${config.path}`;
-          }
+          if (config.path) this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`; // Remove first character if it's /
         }
       } else throw new ConfigurationError(`Missing entry '${serviceName}' in configuration`);
     } catch (err) {

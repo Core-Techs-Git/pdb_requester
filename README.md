@@ -6,12 +6,14 @@
 
 # PDB REQUESTER
 
+[![Latest tag](https://img.shields.io/github/v/tag/Core-Techs-Git/pdb_requester?color=f87a15)](https://github.com/Core-Techs-Git/pdb_requester/tags)
+![Commit since latest release](https://img.shields.io/github/commits-since/Core-Techs-Git/pdb_requester/latest?color=f87a15&sort=semver)
+
 [![Built with TypeScript](https://img.shields.io/npm/v/typescript?color=007ACC&label=Typescript&logo=typescript)](https://github.com/microsoft/TypeScript)
 [![Tested with Jest](https://img.shields.io/npm/v/jest?color=C21325&label=Jest&logo=jest)](https://github.com/facebook/jest)
 [![Code Style Eslint](https://img.shields.io/npm/v/eslint?color=4B32C3&label=Eslint&logo=eslint)](https://github.com/eslint/eslint)
 [![Code Style Prettier](https://img.shields.io/npm/v/prettier?color=F7B93E&label=Prettier&logo=prettier)](https://github.com/prettier/prettier)
-[![Latest tag](https://img.shields.io/github/v/tag/Core-Techs-Git/pdb_requester?color=f87a15)](https://github.com/Core-Techs-Git/pdb_requester/tags)
-![Latest tag](https://img.shields.io/github/commits-since/Core-Techs-Git/pdb_requester/latest?color=f87a15)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 Part of the **[La Plateform du bâtiment](https://www.laplateforme.com/)** environment, this module is responsible for the management of the requests made to external services via a proxy (or not, according to the configuration).
 
@@ -60,7 +62,9 @@ $ npm i -S Core-Techs-Git/pdb_requester.git[#<commit-ish>]
 const config = {};
 ...
 config.search = {
-  url: 'https://search/hashcontent/or?whatever=youlike',
+  protocol: 'https',
+  host: 'search.io',
+  path: '/hashcontent/orwhateveryoulike',
   defaultStoreUid: 1,
   proxy: false,    // true if requests must go through the proxy.
 };
@@ -120,8 +124,6 @@ $ git clone git@github.com:Core-Techs-Git/pdb_requester.git
 $ npm ci
 ```
 
+3. Make sure you have read the guidelines for contributing to the project [here](https://github.com/Core-Techs-Git/pdb_requester/blob/master/CONTRIBUTING.md).
+
 That's it you're all setup and can start contributing :thumbsup:.
-
-## Modules and techs used
-
-[<img src="https://avatars0.githubusercontent.com/u/11887183?s=200&v=4" width="80"/>](http://inversify.io/ 'Inversify')&nbsp;&nbsp;&nbsp;&nbsp;

@@ -40,3 +40,7 @@ desktop.ini
 
 # Build
 #dist
+
+# Configurations
+.npmrc
+config.js

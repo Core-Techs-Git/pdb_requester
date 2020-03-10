@@ -1,9 +1,9 @@
-export * from './RequestOptionsDTO';
-export * from './ServiceConfiguration';
-export * from './ProtocolRequestOptions';
-
 /**
- * Request response handler.
- * @typedef {Object} Callback
+ * List of all the models used in the module.
+ *
+ * @module model
+ * @preferred
+ * @packageDocumentation
  */
-export type Callback = (err?: Error, data?: string) => void;
+
+export * from '@/models/ServiceConfiguration';

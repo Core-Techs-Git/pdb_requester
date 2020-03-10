@@ -15,11 +15,16 @@
     ],
     "types": [
       "node",
+      "jest",
       "reflect-metadata"
     ],
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": [
+        ".",
+        "src/*"
+      ],
       "*": [
         "node_modules/*"
       ]
@@ -28,10 +33,9 @@
   "include": [
     "src"
   ],
-  "exclude": [
-    "bin",
-    "node_modules",
-    "dist",
-    "tests"
-  ]
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs",
+    "hideGenerator": true
+  }
 }

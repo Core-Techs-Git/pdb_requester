@@ -1,18 +1,28 @@
-import {resolve} from 'path';
+/**
+ * @module service
+ * @packageDocumentation
+ */
+
+import {has, get} from 'config';
 import {inject, injectable} from 'inversify';
 
-import {PARAMS} from '../const';
-import {ServiceConfiguration} from '../models';
+import {PARAMS} from '@/const';
+import {ConfigurationError} from '@/error';
+import {ServiceConfiguration} from '@/models';
 
+/** Implementation of a configuration loader */
 @injectable()
 export class Configuration implements ConfigurationInterface {
   /**
-   * Configuration the specify service.
-   * @typedef ServiceConfiguration
+   * Configuration of the specify service.
+   * @type {ServiceConfiguration}
    * @access protected
    */
   protected serviceConfig: ServiceConfiguration;
 
+  /**
+   * @param {string} serviceName Name of the service whose configuration is to be loaded.
+   */
   constructor(@inject(PARAMS.SERVICE_NAME) serviceName: string) {
     this.setMissingCertificateAuthorities();
     this.setServiceConfiguration(serviceName);
@@ -23,26 +33,28 @@ export class Configuration implements ConfigurationInterface {
    * @param {string} serviceName Name of the service configuration to look for.
    */
   protected setServiceConfiguration(serviceName: string): void {
+    if (!serviceName) throw new ConfigurationError('Missing configuration service name');
+    if (typeof serviceName !== 'string') throw new ConfigurationError('Invalid configuration service name');
     try {
-      const configPath = resolve(process.cwd(), 'config.js');
-      const config = require(configPath).requester[serviceName.toLowerCase()];
-      this.serviceConfig = {
-        name: serviceName.toLowerCase(),
-        proxy: config.proxy || false,
-        protocol: config.protocol || 'http',
-      };
-    } catch (err) {
-      if (/^Cannot read property/.test(err.message)) {
-        switch (/^Cannot read property '(?<property>.*)'/gi.exec(err.message).groups.property) {
-          case 'proxy':
-          case 'protocol':
-            throw new Error(`Missing entry <requester.${serviceName}> in configuration file`);
-          default:
-            throw new Error(`Missing entry <requester> in configuration file`);
+      serviceName = serviceName.toLowerCase();
+      if (has(serviceName)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const config: {[prop: string]: any} = get(serviceName);
+
+        this.serviceConfig = {
+          proxy: config.proxy || false,
+        };
+
+        if (config.protocol && config.host) {
+          if (!/^https?$/.test(config.protocol)) throw new ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
+          this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
+          // Remove first character if it's /
+          if (config.path) this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`;
         }
-      }
-      if (/^Cannot find module/.test(err.message)) throw new Error('Missing configuration file <config.js>');
-      throw new Error('An error occured when loading configuration.');
+      } else throw new ConfigurationError(`Missing entry '${serviceName}' in configuration`);
+    } catch (err) {
+      if (err instanceof ConfigurationError) throw err;
+      throw new ConfigurationError(`An error occured when loading configuration — ${err.stack}`);
     }
   }
 
@@ -50,9 +62,7 @@ export class Configuration implements ConfigurationInterface {
     return this.serviceConfig;
   }
 
-  /**
-   * Set root, intermadiate and extra certificates.
-   */
+  /** Set root, intermadiate and extra certificates if specified in env variable `NODE_EXTRA_CA_CERTS`. */
   protected setMissingCertificateAuthorities(): void {
     if (process.env.NODE_EXTRA_CA_CERTS) {
       const rootCas = require('ssl-root-cas').create();
@@ -62,12 +72,10 @@ export class Configuration implements ConfigurationInterface {
   }
 }
 
-/**
- * Configuration loader.
- */
+/** Configuration loader */
 export interface ConfigurationInterface {
   /**
-   * Read the parameters for a service.
+   * Read the configuration parameters for a service.
    * @returns {ServiceConfiguration} Configuration of the specify service.
    */
   getServiceConfiguration(): ServiceConfiguration;

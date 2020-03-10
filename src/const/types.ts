@@ -1,6 +1,10 @@
+/**
+ * @module const
+ * @packageDocumentation
+ */
+
+/** Used to identify which object type should be injected. */
 export const TYPES = {
   RequesterInterface: Symbol.for('RequesterInterface'),
-  ProtocolInterface: Symbol.for('ProtocolInterface'),
-  ProtocolFactoryInterface: Symbol.for('ProtocolFactoryInterface'),
   ConfigurationInterface: Symbol.for('ConfigurationInterface'),
 };

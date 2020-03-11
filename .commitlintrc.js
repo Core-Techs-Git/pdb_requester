@@ -17,7 +17,7 @@ module.exports = {
   },
   parserPreset: {
     parserOpts: {
-      headerPattern: /^(.+?)(?:\((\w+)\))?:\s(.+?)(?:\s\[#(\d+)\])?$/,
+      headerPattern: /^(.+?)(?:\((\w+)\))?:\s(.+?)(?:\s\(R-(\d+)\))?$/,
       headerCorrespondence: ['type', 'scope', 'subject', 'ticket'],
     },
   },

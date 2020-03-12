@@ -32,6 +32,10 @@ module.exports = {
       hidden: true,
     },
     {
+      type: '🔄',
+      hidden: true,
+    },
+    {
       type: '📦',
       section: build,
     },

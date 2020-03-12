@@ -36,43 +36,22 @@ Like the git branching model we have two main branches (master and develop) and 
 
 - **master**: is always stable and production-ready. It contains the last release version of source code in production which means that tags are made from this branch.
 - **develop**: derives from master and is use to integrate features planned for an upcoming release. Therefore it's less stable than master.
-- **feature/\***: derives from develop and is use to implement new feature (by the way everything should be treated as a feature) so you should have a lot of these. When your feature is done you can merge squash it back into develop. Examples of git commands used
+- **feature/\***: derives from develop and is use to implement new feature (by the way everything should be treated as a feature) so you should have a lot of these. When your feature is done you can merge squash it back into develop, make a pull request for that.
+
+- **release/x.y.0**: derives from develop and is used to start a new release. The version name _x.y.0_ follow [semver](https://semver.org/) specification. When the release is ready it is merge squash into master with a pull request. To preserve modifications made in release branch we merge squash it back into develop branch using this git command
 
   ```Shell
-  $ git checkout -b feature/my-feature-name develop
-
   $ git checkout develop
-  $ git merge --no-ff feature/my-feature-name
+  $ git merge -s recursive -X theirs --squash release/x.y.0
   $ git push origin develop
-  $ git branch -d feature/my-feature-name
   ```
 
-- **release/x.y.0**: derives from develop and is used to start a new release.The version name _x.y.0_ follow [semver](https://semver.org/) specification. When the release is ready it is merge squash back into master and develop. Examples of git commands used
+- **hotfix/x.y.z**: derives from master and is used to fix a bug found in latest release. When the bug is fix the branch is merge squash back into master with a pull request. To preserve modifications made in hotfix branch we merge squash it into develop branch using this git command
 
   ```Shell
-  $ git checkout -b release/1.20.0 develop
-
   $ git checkout develop
-  $ git merge release/1.20.0
-  $ git checkout master
-  $ git merge release/1.20.0
-  $ git tag -a 1.20.0
-  $ git push origin master
-  $ git branch -d release/1.20.0
-  ```
-
-- **hotfix/x.y.z**: derives from master and is used to fix a bug found in latest release. When the bug is fix the branch is merge squash back into master and develop. Examples of git commands used
-
-  ```Shell
-  $ git checkout -b hotfix/1.20.1 master
-
-  $ git checkout develop
-  $ git merge --no-ff hotfix/1.20.1
-  $ git checkout master
-  $ git merge --no-ff hotfix/1.20.1
-  $ git tag -a 1.20.1
-  $ git push origin master
-  $ git branch -d hotfix/1.20.1
+  $ git merge -s recursive -X theirs --squash hotfix/x.y.z
+  $ git push origin develop
   ```
 
 ### Commit messages
@@ -82,60 +61,64 @@ For us a valid commit message should:
 
 - Follow the pattern
   ```plaintext
-  type(scope?)!!?: subject [#ticket]?
+  type(scope?)?: subject (R-ticket)?
   body?
   footer?
   ```
 - Limit the header line to 72 characters or less
-- Exclamation mark — `!!` — is optional and specify a breaking change
 - Capitalize the subject line
 - Use the imperative, present tense
 - Have an emoji as `type` in the header. Here is the list of allowed emoji
-  | Emoji | Description |
-  | ----- | ----------- |
-  | 🎬 | First commit (should be used only once) |
-  | 🎉 | New release |
-  | 📦 | Anything related to the package build |
-  | 👷 | Anything related to continous integration or deployment |
-  | 📚 | When editing documentation |
-  | 🧪 | Changes that affect code tests |
-  | 🐛 | Fixing a bug |
-  | 🧩 | Adding new feature |
-  | 💄 | Modification affecting user interface and experience |
-  | ⚡ | Improving performance |
-  | 🔒 | Improving security |
-  | 🔊 | Anything related to logging and monitoring |
-  | 🔗 | Changes related to dependencies |
-  | ♻️ | Changes that neither fixes a bug nor adds a feature, just a refactoring |
-  | 🎨 | when change file structure or architecture |
-  | 🚧 | Work in progress |
-  | ⏳ | When reverting a change (use the same header as reverted commit & add its id in body) |
-  | 📜 | Changes made to licence |
-  | 👥 | Adding a contributer |
+
+  | Emoji | Description                                                                           |
+  | ----- | ------------------------------------------------------------------------------------- |
+  | 🎬    | First commit (should be used only once)                                               |
+  | 🎉    | New release                                                                           |
+  | 📦    | Anything related to the package build                                                 |
+  | 👷    | Anything related to continous integration or deployment                               |
+  | 📚    | When editing documentation                                                            |
+  | 🧪    | Changes that affect code tests                                                        |
+  | 🐛    | Fixing a bug                                                                          |
+  | 🧩    | Adding new feature                                                                    |
+  | 💄    | Modification affecting user interface and experience                                  |
+  | ⚡    | Improving performance                                                                 |
+  | 🔒    | Improving security                                                                    |
+  | 🔊    | Anything related to logging and monitoring                                            |
+  | 🔗    | Changes related to dependencies                                                       |
+  | ♻️    | Changes that neither fixes a bug nor adds a feature, just a refactoring               |
+  | 🎨    | when change file structure or architecture                                            |
+  | 🚧    | Work in progress                                                                      |
+  | ⏳    | When reverting a change (use the same header as reverted commit & add its id in body) |
+  | 📜    | Changes made to licence                                                               |
+  | 👥    | Adding a contributer                                                                  |
+
 - The `scope` is optional and should be one of these options
-  | Scope | Description |
-  | ----- | ----------- |
-  | core | Changes that doesn't impact end users |
-  | error | Changes related to errors handling |
-  | model | Change to the models used in the module |
-  | service | Change related to provided services |
+
+  | Scope   | Description                             |
+  | ------- | --------------------------------------- |
+  | core    | Changes that doesn't impact end users   |
+  | error   | Changes related to errors handling      |
+  | model   | Change to the models used in the module |
+  | service | Change related to provided services     |
+
 - If specify, the `ticket` must refere to a redmine issue.
 
 ### Pull request guideline and labels
 
 When merging a pull request, the merged branch is always squash to the orther branch. Every pull requests must be labeled accordingly using these labels
-| Category | Label | Description |
-| -------- | ----- | ----------- |
-| Priority | High | Indicate pull requests that affect all releases and need to be deployed soon |
-| Priority | Low | Indicates pull requests that don't affect any release code |
-| Priority | Medium | Indicates pull requests that need to be deployed with the next release |
-| Status | Abandoned | Indicates pull requests that are no longer needed |
-| Status | Accepted | Indicates validated pull requests |
-| Status | Blocked | Indicates pull requests that can't be resolved or pursued for now |
-| Status | Completed | Indicates that work on pull requests is finished |
-| Status | In progress | Indicates pull requests which are still being worked on, more changes will follow |
-| Type | Bug | Indicates an unexpected problem or unintended behavior in production source code |
-| Type | Duplicate | Indicates similar issues or pull requests |
-| Type | Feature | Indicates new feature pull requests |
-| Type | Enhancement | Indicates improvement pull requests |
-| Type | Question | Indicates that issues or pull requests needs more information |
+
+| Category | Label       | Description                                                                       |
+| -------- | ----------- | --------------------------------------------------------------------------------- |
+| Priority | High        | Indicate pull requests that affect all releases and need to be deployed soon      |
+| Priority | Low         | Indicates pull requests that don't affect any release code                        |
+| Priority | Medium      | Indicates pull requests that need to be deployed with the next release            |
+| Status   | Abandoned   | Indicates pull requests that are no longer needed                                 |
+| Status   | Accepted    | Indicates validated pull requests                                                 |
+| Status   | Blocked     | Indicates pull requests that can't be resolved or pursued for now                 |
+| Status   | Completed   | Indicates that work on pull requests is finished                                  |
+| Status   | In progress | Indicates pull requests which are still being worked on, more changes will follow |
+| Type     | Bug         | Indicates an unexpected problem or unintended behavior in production source code  |
+| Type     | Duplicate   | Indicates similar issues or pull requests                                         |
+| Type     | Feature     | Indicates new feature pull requests                                               |
+| Type     | Enhancement | Indicates improvement pull requests                                               |
+| Type     | Question    | Indicates that issues or pull requests needs more information                     |

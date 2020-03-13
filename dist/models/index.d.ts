@@ -1,1 +1,1 @@
-export * from '@/models/ServiceConfiguration';
+export * from "./ServiceConfiguration";

@@ -1,2 +1,2 @@
-export * from '@/const/types';
-export * from '@/const/params';
+export * from "./types";
+export * from "./params";

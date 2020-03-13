@@ -1,5 +1,5 @@
 import { RequestAPI, Request, CoreOptions, RequiredUriUrl } from 'request';
-import { ConfigurationInterface } from '@/services/Configuration';
+import { ConfigurationInterface } from "./Configuration";
 export declare class Requester implements RequesterInterface {
     /**
      * Service configuration.

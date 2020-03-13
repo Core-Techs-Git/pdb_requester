@@ -1,4 +1,4 @@
-import { ServiceConfiguration } from '@/models';
+import { ServiceConfiguration } from "../models";
 export declare class Configuration implements ConfigurationInterface {
     /**
      * Configuration of the specify service.

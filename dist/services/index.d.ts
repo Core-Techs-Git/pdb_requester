@@ -1,2 +1,2 @@
-export * from '@/services/Requester';
-export * from '@/services/Configuration';
+export * from "./Requester";
+export * from "./Configuration";

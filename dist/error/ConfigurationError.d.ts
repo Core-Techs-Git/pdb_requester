@@ -1,3 +1,3 @@
-import { RequesterError } from '@/error/RequesterError';
+import { RequesterError } from "./RequesterError";
 export declare class ConfigurationError extends RequesterError {
 }

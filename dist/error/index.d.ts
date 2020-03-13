@@ -1,2 +1,2 @@
-export * from '@/error/RequesterError';
-export * from '@/error/ConfigurationError';
+export * from "./RequesterError";
+export * from "./ConfigurationError";

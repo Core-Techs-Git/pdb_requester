@@ -22,13 +22,20 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        ".",
         "src/*"
       ],
       "*": [
         "node_modules/*"
       ]
-    }
+    },
+    "plugins": [
+      {
+        "transform": "@zerollup/ts-transform-paths",
+        "exclude": [
+          "*"
+        ]
+      }
+    ]
   },
   "include": [
     "src"

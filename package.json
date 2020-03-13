@@ -10,7 +10,8 @@
     "analysis:dependency": "check-audit",
     "analysis:lint": "eslint --ext .ts --color ./src",
     "analysis:style": "prettier --check src/**/*.ts",
-    "build": "rimraf dist && tsc && tspath -f",
+    "build": "npm run clean && ttsc",
+    "clean": "rimraf dist",
     "test": "jest --runInBand --silent --colors",
     "watch": "npm run build -- -w"
   },
@@ -22,7 +23,11 @@
     "type": "git",
     "url": "git+https://github.com/core-techs-git/pdb_requester.git"
   },
-  "author": "Adimeo",
+  "author": {
+    "name": "Adimeo",
+    "email": "contact@adimeo.com",
+    "url": "https://adimeo.com/"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Core-Techs-Git/pdb_requester/issues"
@@ -30,7 +35,7 @@
   "homepage": "https://github.com/Core-Techs-Git/pdb_requester#readme",
   "engines": {
     "node": "10.15.3",
-    "npm": "6.13.7"
+    "npm": ">=6.9.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -45,12 +50,15 @@
     "ssl-root-cas": "^1.3.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
     "@types/jest": "^25.1.3",
     "@types/node": "^13.7.4",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
+    "@zerollup/ts-transform-paths": "^1.7.12",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "husky": "^4.2.3",
     "jest": "^25.1.0",
     "jest-junit": "^10.0.0",
     "madge": "^3.7.0",
@@ -59,7 +67,7 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^25.2.1",
-    "tspath": "^1.3.7",
+    "ttypescript": "^1.5.10",
     "typescript": "^3.8.2"
   }
 }

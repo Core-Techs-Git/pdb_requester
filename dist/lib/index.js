@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * Provide fonctionalities through external libraries.
+ *
+ * @module lib
+ * @preferred
+ * @packageDocumentation
+ */
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -8,5 +15,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const container = __importStar(require("./inversify"));
+/** @ignore */
 exports.inversifyContainer = container.default;
 //# sourceMappingURL=index.js.map

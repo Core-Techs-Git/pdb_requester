@@ -1,3 +1,8 @@
+/**
+ * @module service
+ * @packageDocumentation
+ */
+
 import {has, get} from 'config';
 import {inject, injectable} from 'inversify';
 
@@ -5,15 +10,19 @@ import {PARAMS} from '@/const';
 import {ConfigurationError} from '@/error';
 import {ServiceConfiguration} from '@/models';
 
+/** Implementation of a configuration loader */
 @injectable()
 export class Configuration implements ConfigurationInterface {
   /**
    * Configuration of the specify service.
-   * @typedef ServiceConfiguration
+   * @type {ServiceConfiguration}
    * @access protected
    */
   protected serviceConfig: ServiceConfiguration;
 
+  /**
+   * @param {string} serviceName Name of the service whose configuration is to be loaded.
+   */
   constructor(@inject(PARAMS.SERVICE_NAME) serviceName: string) {
     this.setMissingCertificateAuthorities();
     this.setServiceConfiguration(serviceName);
@@ -39,7 +48,8 @@ export class Configuration implements ConfigurationInterface {
         if (config.protocol && config.host) {
           if (!/^https?$/.test(config.protocol)) throw new ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
           this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
-          if (config.path) this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`; // Remove first character if it's /
+          // Remove first character if it's /
+          if (config.path) this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`;
         }
       } else throw new ConfigurationError(`Missing entry '${serviceName}' in configuration`);
     } catch (err) {
@@ -52,9 +62,7 @@ export class Configuration implements ConfigurationInterface {
     return this.serviceConfig;
   }
 
-  /**
-   * Set root, intermadiate and extra certificates.
-   */
+  /** Set root, intermadiate and extra certificates if specified in env variable `NODE_EXTRA_CA_CERTS`. */
   protected setMissingCertificateAuthorities(): void {
     if (process.env.NODE_EXTRA_CA_CERTS) {
       const rootCas = require('ssl-root-cas').create();
@@ -64,12 +72,10 @@ export class Configuration implements ConfigurationInterface {
   }
 }
 
-/**
- * Configuration loader.
- */
+/** Configuration loader */
 export interface ConfigurationInterface {
   /**
-   * Read the parameters for a service.
+   * Read the configuration parameters for a service.
    * @returns {ServiceConfiguration} Configuration of the specify service.
    */
   getServiceConfiguration(): ServiceConfiguration;

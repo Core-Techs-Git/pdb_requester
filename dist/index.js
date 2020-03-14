@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @ignore
+ * @packageDocumentation
+ */
 require("reflect-metadata");
 const const_1 = require("./const");
 const error_1 = require("./error");

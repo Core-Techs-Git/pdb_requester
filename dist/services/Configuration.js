@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @module service
+ * @packageDocumentation
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,7 +20,11 @@ const config_1 = require("config");
 const inversify_1 = require("inversify");
 const const_1 = require("../const");
 const error_1 = require("../error");
+/** Implementation of a configuration loader */
 let Configuration = class Configuration {
+    /**
+     * @param {string} serviceName Name of the service whose configuration is to be loaded.
+     */
     constructor(serviceName) {
         this.setMissingCertificateAuthorities();
         this.setServiceConfiguration(serviceName);
@@ -42,8 +50,9 @@ let Configuration = class Configuration {
                     if (!/^https?$/.test(config.protocol))
                         throw new error_1.ConfigurationError(`Invalid protocol for entry '${serviceName}' in configuration`);
                     this.serviceConfig.baseUrl = `${config.protocol}://${config.host}/`;
+                    // Remove first character if it's /
                     if (config.path)
-                        this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`; // Remove first character if it's /
+                        this.serviceConfig.baseUrl += `${config.path.replace(/^\//, '')}`;
                 }
             }
             else
@@ -58,9 +67,7 @@ let Configuration = class Configuration {
     getServiceConfiguration() {
         return this.serviceConfig;
     }
-    /**
-     * Set root, intermadiate and extra certificates.
-     */
+    /** Set root, intermadiate and extra certificates if specified in env variable `NODE_EXTRA_CA_CERTS`. */
     setMissingCertificateAuthorities() {
         if (process.env.NODE_EXTRA_CA_CERTS) {
             const rootCas = require('ssl-root-cas').create();

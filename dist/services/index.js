@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * List of all the services used in the module.
+ *
+ * @module service
+ * @preferred
+ * @packageDocumentation
+ */
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }

@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @module service
+ * @packageDocumentation
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,7 +20,11 @@ const inversify_1 = require("inversify");
 const request_1 = require("request");
 const const_1 = require("../const");
 const error_1 = require("../error");
+/** Implementation of a requester */
 let Requester = class Requester {
+    /**
+     * @param {ConfigurationInterface} config Configuration loader
+     */
     constructor(config) {
         if (config.getServiceConfiguration().proxy && process.env.http_proxy === undefined)
             throw new error_1.RequesterError("Missing environment variable 'http_proxy'");

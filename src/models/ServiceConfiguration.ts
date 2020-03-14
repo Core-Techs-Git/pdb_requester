@@ -1,4 +1,9 @@
 /**
+ * @module model
+ * @packageDocumentation
+ */
+
+/**
  * A service configuration properties
  * @typedef {Object} ServiceConfiguration
  */

@@ -12,6 +12,7 @@
     "analysis:style": "prettier --check src/**/*.ts",
     "build": "npm run clean && ttsc",
     "clean": "rimraf dist",
+    "doc": "typedoc --tsconfig",
     "test": "jest --runInBand --silent --colors",
     "watch": "npm run build -- -w"
   },
@@ -68,6 +69,8 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^25.2.1",
     "ttypescript": "^1.5.10",
+    "typedoc": "^0.16.11",
+    "typedoc-plugin-external-module-name": "^3.0.0",
     "typescript": "^3.8.2"
   }
 }

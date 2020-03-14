@@ -1,3 +1,8 @@
+/**
+ * @ignore
+ * @packageDocumentation
+ */
+
 import 'reflect-metadata';
 import {RequestAPI, Request, CoreOptions, RequiredUriUrl} from 'request';
 

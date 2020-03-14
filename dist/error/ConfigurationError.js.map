@@ -1,1 +1,1 @@
-{"version":3,"file":"ConfigurationError.js","sourceRoot":"","sources":["../../src/error/ConfigurationError.ts"],"names":[],"mappings":";;AAAA,2DAAsD;AAEtD,MAAa,kBAAmB,SAAQ,+BAAc;CAAG;AAAzD,gDAAyD"}
+{"version":3,"file":"ConfigurationError.js","sourceRoot":"","sources":["../../src/error/ConfigurationError.ts"],"names":[],"mappings":";AAAA;;;GAGG;;AAEH,qDAAsD;AAEtD,mCAAmC;AACnC,MAAa,kBAAmB,SAAQ,+BAAc;CAAG;AAAzD,gDAAyD"}

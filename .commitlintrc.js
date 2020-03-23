@@ -21,8 +21,10 @@ module.exports = {
   },
   parserPreset: {
     parserOpts: {
-      headerPattern: /^(.+?)(?:\((\w+)\))?:\s(.+?)(?:\s\(R-(\d+)\))?$/,
+      headerPattern: /^(.+?)(?:\((\w+)\))?!?:\s(.+?)(?:\s\((R-\d+)\))?$/,
+      breakingHeaderPattern: /^(.+?)(?:\((\w+)\))?!:\s(.+?)(?:\s\((R-\d+)\))?$/,
       headerCorrespondence: ['type', 'scope', 'subject', 'ticket'],
+      issuePrefixes: ['R-'],
     },
   },
   ignores: [commit => commit === '' || commit === 'Add 1 git-crypt collaborator'],

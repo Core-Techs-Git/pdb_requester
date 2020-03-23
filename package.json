@@ -1,6 +1,6 @@
 {
   "name": "@core-techs-git/pdb_requester",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "A request formater mmodule for pdb apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,7 @@
     "build": "npm run clean && ttsc",
     "clean": "rimraf dist",
     "doc": "typedoc --tsconfig",
+    "release": "bin/release",
     "test": "jest --runInBand --silent --colors",
     "watch": "npm run build -- -w"
   },
@@ -57,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "@zerollup/ts-transform-paths": "^1.7.12",
+    "auto-changelog": "^1.16.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "husky": "^4.2.3",
@@ -67,7 +69,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "standard-version": "^7.1.0",
+    "semver": "^7.1.3",
     "ts-jest": "^25.2.1",
     "ttypescript": "^1.5.10",
     "typedoc": "^0.16.11",

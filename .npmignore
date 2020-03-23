@@ -52,5 +52,6 @@ jenkinsfile
 jest.config.js
 tsconfig.json
 
+bin
 src
 test

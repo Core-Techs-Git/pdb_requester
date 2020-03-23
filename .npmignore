@@ -40,8 +40,10 @@ desktop.ini
 
 # No need to be in package
 *.js.map
+.commitlintrc.js
 .eslintignore
 .eslintrc.js
+.huskyrc
 .madgerc
 .prettierignore
 .prettierrc
@@ -49,7 +51,7 @@ config.js
 jenkinsfile
 jest.config.js
 tsconfig.json
-tsconfig.test.json
 
+bin
 src
 test

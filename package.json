@@ -1,6 +1,6 @@
 {
   "name": "@core-techs-git/pdb_requester",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A request formater mmodule for pdb apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

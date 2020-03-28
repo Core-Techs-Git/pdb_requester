@@ -7,7 +7,7 @@
   "ignoreCommitPattern": "Add 1 git-crypt collaborator",
   "tagPrefix": "",
   "replaceText": {
-    "R-(\\d+)": "[R-`$1`](https://redmine.laplateforme.com/redmine/issues/$1)",
-    "#(\\d+)": "[#`$1`](https://github.com/Core-Techs-Git/pdb_requester/pull/$1)"
+    "R-(\\d+)": "[R-$1](https://redmine.laplateforme.com/redmine/issues/$1)",
+    "#(\\d+)": "[#$1](https://github.com/Core-Techs-Git/pdb_requester/pull/$1)"
   }
 }

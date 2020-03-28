@@ -38,34 +38,41 @@ const color = {
   },
 };
 const currentVersion = package.version;
-const releaseVersion = execSync('git branch --show-current')
+let nextVersion = execSync('git branch --show-current')
   .toString()
-  .trim()
-  .replace('release/', '');
+  .trim();
+const branchName = nextVersion.includes('release') ? 'release/' : nextVersion.includes('hotfix') ? 'hotfix/' : null;
 
-if (!semver.valid(releaseVersion)) {
+if(!branchName){
+  console.error(`${color.fg.Red}You can released only branches named ${color.Bright}release/x.y.z${color.Reset}${color.fg.Red} or ${color.Bright}hotfix/x.y.z${color.Reset}`);
+  process.exit(1);
+}
+
+nextVersion = nextVersion.replace('release/', '').replace('hotfix/', '');
+
+if (!semver.valid(nextVersion)) {
   console.error(
-    `${color.fg.Red}Branch named ${color.Bright}release/${releaseVersion}${color.Reset}${color.fg.Red} doesn't follow ${color.Bright}release/x.y.z${color.Reset}${color.fg.Red} branch naming covention${color.Reset}`,
+    `${color.fg.Red}Branch named ${color.Bright}${branchName}${nextVersion}${color.Reset}${color.fg.Red} doesn't follow ${color.Bright}${branchName}x.y.z${color.Reset}${color.fg.Red} branch naming covention${color.Reset}`,
   );
   process.exit(1);
 }
 
-if (semver.lte(releaseVersion, currentVersion)) {
+if (semver.lte(nextVersion, currentVersion)) {
   console.error(
-    `${color.fg.Red}Release version ${color.Bright}${releaseVersion}${color.Reset}${color.fg.Red} should be greater than current version ${color.Bright}${currentVersion}${color.Reset}`,
+    `${color.fg.Red}Release version ${color.Bright}${nextVersion}${color.Reset}${color.fg.Red} should be greater than current version ${color.Bright}${currentVersion}${color.Reset}`,
   );
   process.exit(1);
 }
 
-const releasedVersion = execSync(`npm version --no-git-tag-version ${releaseVersion}`)
+const releasedVersion = execSync(`npm version --no-git-tag-version ${nextVersion}`)
   .toString()
   .trim()
   .replace('v', '');
 
-if (releaseVersion !== releasedVersion) {
+if (nextVersion !== releasedVersion) {
   console.error(`${color.fg.Red}An error occured while updating ${color.Bright}package files${color.Reset}`);
   process.exit(1);
 }
 
 execSync('auto-changelog --config .changelogrc');
-execSync(`git add package.json package-lock.json CHANGELOG.md && git commit -m "🎉: RELEASE ${releaseVersion}"`);
+execSync(`git add package.json package-lock.json CHANGELOG.md && git commit -m "🎉: RELEASE ${nextVersion}"`);

@@ -9,23 +9,29 @@ alt="Pdb logo" width="200">
 
 All notable changes to this project will be documented in this file.
 
+##  [Release 1.2.2](https://github.com/Core-Techs-Git/pdb_requester/compare/1.2.1...1.2.2)  on 2020-07-22
+
+![BUGS](https://img.shields.io/static/v1?label=&style=flat&message=BUGS&color=e74c3c)
+
+> 🐛: ALLOW HTTP TUNNELING VIA PROXY ([R-12807](https://redmine.laplateforme.com/redmine/issues/12807)) [`6fc50b5`](https://github.com/Core-Techs-Git/pdb_requester/commit/6fc50b5630d8b287f93261e9e1cba19a7ed85525)<br />
+
 ##  [Release 1.2.1](https://github.com/Core-Techs-Git/pdb_requester/compare/1.2.0...1.2.1)  on 2020-03-28
 
 ![BUILD](https://img.shields.io/static/v1?label=&style=flat&message=BUILD&color=7f8c8d)
 
-> 📦(core): UPDATE RELEASE SCRIPT [`6884c02`](https://github.com/Core-Techs-Git/pdb_requester/commit/6884c027dfa55583b61ddfb303904136998f8ee8)<br />
+> 📦(core): UPDATE RELEASE SCRIPT [`98e2219`](https://github.com/Core-Techs-Git/pdb_requester/commit/98e221981a469b3b819a75a492b472742bc2a6be)<br />
 
 ![DOCUMENTATION](https://img.shields.io/static/v1?label=&style=flat&message=DOCUMENTATION&color=9b59b6)
 
-> 📚: UPDATE CODE DOCUMENTATION [`d348279`](https://github.com/Core-Techs-Git/pdb_requester/commit/d3482796bee7e79d2121b974f7a9e68aefc8d189)<br />
+> 📚: UPDATE CODE DOCUMENTATION [`077970f`](https://github.com/Core-Techs-Git/pdb_requester/commit/077970f710d99bf26eb7b580b7e92321237288d4)<br />
 
 ![BUGS](https://img.shields.io/static/v1?label=&style=flat&message=BUGS&color=e74c3c)
 
-> 🐛(core): FIX CHANGELOG TEMPLATE [`a9f7ae5`](https://github.com/Core-Techs-Git/pdb_requester/commit/a9f7ae5c92bc5627090c588745dbf975dd93b338)<br />
+> 🐛(core): FIX CHANGELOG TEMPLATE [`75c7403`](https://github.com/Core-Techs-Git/pdb_requester/commit/75c740302bcc2aeec41480a65fb6695b4c8dc6c0)<br />
 
 ![SECURITY](https://img.shields.io/static/v1?label=&style=flat&message=SECURITY&color=f39c12)
 
-> 🔗(core): FIX SECURITY VULNERABILITIE [`750eee4`](https://github.com/Core-Techs-Git/pdb_requester/commit/750eee4be098b372c5cd8f2a1e8e68b2d0161ab9)<br />
+> 🔗(core): FIX SECURITY VULNERABILITIE [`06d536c`](https://github.com/Core-Techs-Git/pdb_requester/commit/06d536cd0abf463e18e0428c9fb2527842f53c32)<br />
 
 ##  [Release 1.2.0](https://github.com/Core-Techs-Git/pdb_requester/compare/1.1.1...1.2.0)  on 2020-03-23
 

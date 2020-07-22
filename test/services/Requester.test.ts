@@ -41,7 +41,7 @@ describe('Requester service', () => {
     inversifyContainer.get<RequesterInterface>(TYPES.RequesterInterface).getInstance();
 
     expect(defaults).toHaveBeenCalledWith({
-      tunnel: false,
+      tunnel: true,
       baseUrl: 'https://hostname.com/path',
       proxy: 'http://hostname.com',
     });
@@ -55,7 +55,7 @@ describe('Requester service', () => {
     inversifyContainer.get<RequesterInterface>(TYPES.RequesterInterface).getInstance();
 
     expect(defaults).toHaveBeenCalledWith({
-      tunnel: false,
+      tunnel: true,
       baseUrl: '',
       proxy: false,
     });

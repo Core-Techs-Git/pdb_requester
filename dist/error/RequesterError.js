@@ -4,6 +4,7 @@
  * @packageDocumentation
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RequesterError = void 0;
 /** Module default errors */
 class RequesterError extends Error {
     /**

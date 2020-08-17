@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * @module service
  * @packageDocumentation
@@ -16,6 +17,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Configuration = void 0;
 const config_1 = require("config");
 const inversify_1 = require("inversify");
 const const_1 = require("../const");

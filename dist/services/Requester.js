@@ -16,6 +16,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Requester = void 0;
 const inversify_1 = require("inversify");
 const request_1 = require("request");
 const const_1 = require("../const");
